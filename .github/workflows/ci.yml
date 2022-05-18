@@ -1,0 +1,44 @@
+name: Build CI
+
+on: [push]
+
+jobs:
+  build-dotnet:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['6.0.x']
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v2
+        with:
+            dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore src/src.sln
+      - name: Build
+        run: dotnet build --configuration Release --no-restore src/src.sln
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal src/src.sln
+
+  build-web:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+            node-version: ${{ matrix.node-version }}
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v1
+        with:
+            version: '3.x'
+      - run: cd src/web/ui && npm ci
+      - run: cd src/web/ui && npm run proto:generate
+      - run: cd src/web/ui && npm run build --if-present

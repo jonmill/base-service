@@ -1,0 +1,42 @@
+{
+    "name": "ui",
+    "version": "1.0.0",
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve",
+        "build": "ng build",
+        "watch": "ng build --watch --configuration development",
+        "proto:generate": "protoc --plugin=./node_modules/.bin/protoc-gen-ng.cmd --ng_out=src/protos -I ../../api/Protos ../../api/Protos/*.proto"
+    },
+    "private": true,
+    "dependencies": {
+        "@angular/animations": "~13.1.0",
+        "@angular/common": "~13.1.0",
+        "@angular/compiler": "~13.1.0",
+        "@angular/core": "~13.1.0",
+        "@angular/forms": "~13.1.0",
+        "@angular/platform-browser": "~13.1.0",
+        "@angular/platform-browser-dynamic": "~13.1.0",
+        "@angular/router": "~13.1.0",
+        "@ngx-grpc/common": "^3.0.1",
+        "@ngx-grpc/core": "^3.0.1",
+        "@ngx-grpc/grpc-web-client": "^3.0.1",
+        "@ngx-grpc/well-known-types": "^3.0.1",
+        "google-protobuf": "^3.20.1",
+        "grpc-web": "^1.3.1",
+        "rxjs": "~7.4.0",
+        "ts-proto": "^1.112.2",
+        "ts-protoc-gen": "^0.15.0",
+        "tslib": "^2.3.0",
+        "zone.js": "~0.11.4"
+    },
+    "devDependencies": {
+        "@angular-devkit/build-angular": "^13.3.6",
+        "@angular/cli": "~13.1.2",
+        "@angular/compiler-cli": "~13.1.0",
+        "@ngx-grpc/protoc-gen-ng": "^3.0.1",
+        "@types/google-protobuf": "^3.15.6",
+        "@types/node": "^12.11.1",
+        "typescript": "~4.5.2"
+    }
+}
