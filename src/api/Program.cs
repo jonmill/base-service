@@ -69,7 +69,10 @@ builder.Services.AddDbContext<DatabaseProvider>(options =>
         throw new InvalidOperationException($"Could not find Database Connection String at `{DB_CONNECTION_STRING}`");
     }
 
-    options.UseNpgsql(dbConnection);
+    options.UseSqlite(dbConnection, sqliteOptions =>
+    {
+        sqliteOptions.CommandTimeout(5); // Timeout after 5 seconds
+    });
 });
 
 
