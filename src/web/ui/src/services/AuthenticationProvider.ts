@@ -30,7 +30,7 @@ export class AuthenticationProvider implements OnDestroy {
         const token: any = jwt_decode(jwtToken);
         const refreshToken: string = token.refresh_token;
         const expiration: number = token.exp;
-        const userId: number = token.user_id;
+        const userId: number = token.actor;
         const userName: string = token.user_name;
 
         localStorage.setItem(this._accessTokenStorageKey, jwtToken);

@@ -5,9 +5,6 @@ using Warbreaker.Configuration;
 using Warbreaker.Data;
 using Warbreaker.Services;
 
-const string JWT_SIGNING_KEY_CONFIG_NAME = "JwtSecret";
-const string DB_CONNECTION_STRING = "DbConnectionString";
-
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureKestrel((context, serverOptions) =>
 {
@@ -26,31 +23,13 @@ builder.Services.AddGrpc(opts =>
 builder.Configuration.AddConfigurationSettings(builder.Environment.EnvironmentName, args);
 builder.Logging.AddAppLogging(builder.Configuration, builder.Environment.EnvironmentName);
 
-// Add authentication
-string? jwtSigningKeyString = builder.Configuration.GetValue<string>(JWT_SIGNING_KEY_CONFIG_NAME);
-if (string.IsNullOrEmpty(jwtSigningKeyString))
-{
-    throw new InvalidOperationException($"Could not find JWT Signing Key at `{JWT_SIGNING_KEY_CONFIG_NAME}`");
-}
-
-#warning Switch to an asymmetric key in the future, for better security. This will work for now.
-byte[] jwtSigningKey = Convert.FromBase64String(jwtSigningKeyString);
-Microsoft.IdentityModel.Tokens.SymmetricSecurityKey securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(jwtSigningKey);
-
 // Add JWT authentication and authorizations
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-        {
-            ValidateAudience = true,
-            ValidateIssuer = true,
-            ValidateActor = true,
-            ValidateLifetime = true,
-            IssuerSigningKey = securityKey,
-        };
-    });
-builder.Services.AddAuthorization(options =>
+        options.TokenValidationParameters = builder.Configuration.GetJwtValidationParameters();
+    })
+    .Services.AddAuthorization(options =>
 {
     options.AddPolicy(JwtBearerDefaults.AuthenticationScheme, policy =>
     {
@@ -63,13 +42,8 @@ builder.Services.AddAuthorization(options =>
 // Add database provider
 builder.Services.AddDbContext<DatabaseProvider>(options =>
 {
-    string? dbConnection = builder.Configuration.GetValue<string>(DB_CONNECTION_STRING);
-    if (string.IsNullOrEmpty(dbConnection))
-    {
-        throw new InvalidOperationException($"Could not find Database Connection String at `{DB_CONNECTION_STRING}`");
-    }
-
-    options.UseSqlite(dbConnection, sqliteOptions =>
+    string conString = builder.Configuration.GetDatabaseConnectionString();
+    options.UseSqlite(conString, sqliteOptions =>
     {
         sqliteOptions.CommandTimeout(5); // Timeout after 5 seconds
     });
@@ -87,7 +61,7 @@ app.UseAuthorization();
 
 app.UseEndpoints(eps =>
 {
-    eps.MapGrpcService<GreeterService>().EnableGrpcWeb();
+    eps.MapGrpcService<LoginService>().EnableGrpcWeb();
 });
 
 app.Run();

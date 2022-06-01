@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "Warbreaker.Protobufs";
+
+package login;
+
+service Login {
+    rpc Login (LoginRequest) returns (LoginResponse);
+}
+
+message LoginRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    string jwtToken = 1;
+}

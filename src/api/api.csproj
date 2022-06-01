@@ -12,11 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
     <PackageReference Include="Grpc.AspNetCore.Web" Version="2.46.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5" />
@@ -26,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="../config/config.csproj" />
     <ProjectReference Include="../db/db.csproj" />
+    <ProjectReference Include="../protos/protos.csproj" />
   </ItemGroup>
 
 </Project>

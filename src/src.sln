@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "db", "db\db.csproj", "{8FA3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "config", "config\config.csproj", "{E20CE276-9B66-4F5B-BB35-3CC2EE900A99}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "console", "console\console.csproj", "{88E88B33-CD90-4719-97BE-AC0162AB5588}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "protos", "protos\protos.csproj", "{A6A391CD-F42E-4C56-863C-A4DCF45A568C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{E20CE276-9B66-4F5B-BB35-3CC2EE900A99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E20CE276-9B66-4F5B-BB35-3CC2EE900A99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E20CE276-9B66-4F5B-BB35-3CC2EE900A99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88E88B33-CD90-4719-97BE-AC0162AB5588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88E88B33-CD90-4719-97BE-AC0162AB5588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88E88B33-CD90-4719-97BE-AC0162AB5588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88E88B33-CD90-4719-97BE-AC0162AB5588}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6A391CD-F42E-4C56-863C-A4DCF45A568C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6A391CD-F42E-4C56-863C-A4DCF45A568C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6A391CD-F42E-4C56-863C-A4DCF45A568C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6A391CD-F42E-4C56-863C-A4DCF45A568C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
